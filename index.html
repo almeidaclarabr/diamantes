@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Diamond Generator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Free Fire Diamonds" class="logo">
+            <h1 class="title">Free Fire Diamond Generator</h1>
+            <p class="subtitle">Get unlimited diamonds for your Free Fire account!</p>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <!-- Step 1: Player Info -->
+        <div class="step active" id="step-1">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="step-title">
+                        <i class="fas fa-user"></i> Player Information
+                    </h2>
+                    <p class="step-subtitle">Enter your game details to continue</p>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="player-nickname" class="form-label">Your User ID</label>
+                        <input type="text" id="player-nickname" class="form-control" placeholder="Enter your Free Fire User ID (e.g., 123456789)">
+                        <small class="error-message" id="nickname-error"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="diamond-amount" class="form-label">Select Diamond Amount</label>
+                        <select id="diamond-amount" class="form-control form-select">
+                            <option value="1,000">1,000 Diamonds</option>
+                            <option value="5,000">5,000 Diamonds</option>
+                            <option value="10,000">10,000 Diamonds</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="continue-btn" class="btn btn-primary btn-block">
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Share with Friends -->
+        <div class="step" id="step-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="step-title">
+                        <i class="fas fa-share-alt"></i> Share with Friends
+                    </h2>
+                    <p class="step-subtitle">Share this generator with 3 friends to continue</p>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <p>Hey <span id="share-nickname" class="fw-bold"></span>, you're almost there!</p>
+                        <p>You selected <span id="share-diamonds" class="fw-bold"></span> diamonds.</p>
+                        <p>To complete the process, please share this generator with 3 friends on WhatsApp.</p>
+                    </div>
+                    
+                    <div class="share-options">
+                        <button class="share-button" data-share-id="1">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Share #1</span>
+                            <div class="share-status" id="share-status-1">
+                                <i class="fas fa-circle-notch fa-spin share-loading"></i>
+                                <i class="fas fa-check share-complete"></i>
+                            </div>
+                        </button>
+                        <button class="share-button" data-share-id="2">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Share #2</span>
+                            <div class="share-status" id="share-status-2">
+                                <i class="fas fa-circle-notch fa-spin share-loading"></i>
+                                <i class="fas fa-check share-complete"></i>
+                            </div>
+                        </button>
+                        <button class="share-button" data-share-id="3">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Share #3</span>
+                            <div class="share-status" id="share-status-3">
+                                <i class="fas fa-circle-notch fa-spin share-loading"></i>
+                                <i class="fas fa-check share-complete"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="shared-btn" class="btn btn-secondary btn-block">
+                        I've Shared with 3 Friends <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="step" id="step-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="step-title">
+                        <i class="fas fa-check-circle"></i> Generation Complete
+                    </h2>
+                    <p class="step-subtitle">Your diamonds are being processed</p>
+                </div>
+                <div class="card-body">
+                    <div class="result-container">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        
+                        <img src="{{ url_for('static', filename='images/diamonds.svg') }}" alt="Diamonds" class="diamond-icon">
+                        
+
+                       
+                
+                        
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p class="alert-text">Important: Due to high server load, the diamonds will be delivered within 24 hours.</p>
+                        </div>
+                        
+                        <div class="countdown">
+                            <div class="countdown-item">
+                                <span id="countdown-hours" class="countdown-number">23</span>
+                                <span class="countdown-label">Hours</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="countdown-minutes" class="countdown-number">59</span>
+                                <span class="countdown-label">Minutes</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="countdown-seconds" class="countdown-number">59</span>
+                                <span class="countdown-label">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-5 mb-4">
+            <p class="small text-muted">
+                &copy; 2025 Free Fire Diamond Generator
+            </p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
